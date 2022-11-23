@@ -3723,6 +3723,7 @@ dependencies = [
  "pallet-transaction-payment",
  "pallet-transaction-payment-rpc-runtime-api",
  "parity-scale-codec",
+ "runtime-common",
  "scale-info",
  "sp-api",
  "sp-block-builder",
@@ -4963,6 +4964,10 @@ dependencies = [
  "nix",
  "thiserror",
 ]
+
+[[package]]
+name = "runtime-common"
+version = "1.0.0"
 
 [[package]]
 name = "rustc-demangle"
