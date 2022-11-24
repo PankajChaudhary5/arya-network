@@ -100,8 +100,15 @@ pub fn arya_config() -> Result<ChainSpec, String> {
 	))
 }
 
+/// Generate a chain spec for ARYA development chain.
 pub fn development_config() -> Result<ChainSpec, String> {
 	let wasm_binary = WASM_BINARY.ok_or_else(|| "Development wasm not available".to_string())?;
+
+	// Give your base currency a unit name and decimal places
+	let mut properties = sc_chain_spec::Properties::new();
+	properties.insert("tokenSymbol".into(), TOKEN_SYMBOL.into());
+	properties.insert("tokenDecimals".into(), TOKEN_DECIMALS.into());
+	properties.insert("ss58Format".into(), SS_58_FORMAT.into());
 
 	Ok(ChainSpec::from_genesis(
 		// Name
@@ -148,8 +155,15 @@ pub fn development_config() -> Result<ChainSpec, String> {
 	))
 }
 
+/// Generate a chain spec for Analog testnet chain.
 pub fn local_testnet_config() -> Result<ChainSpec, String> {
 	let wasm_binary = WASM_BINARY.ok_or_else(|| "Development wasm not available".to_string())?;
+
+	// Give your base currency a unit name and decimal places
+	let mut properties = sc_chain_spec::Properties::new();
+	properties.insert("tokenSymbol".into(), TOKEN_SYMBOL.into());
+	properties.insert("tokenDecimals".into(), TOKEN_DECIMALS.into());
+	properties.insert("ss58Format".into(), SS_58_FORMAT.into());
 
 	Ok(ChainSpec::from_genesis(
 		// Name
@@ -210,7 +224,6 @@ fn testnet_genesis(
 			code: wasm_binary.to_vec(),
 		},
 		balances: BalancesConfig {
-			// Configure endowed accounts with initial balance of 1 << 60.
 			balances: endowed_accounts,
 		},
 		aura: AuraConfig {
