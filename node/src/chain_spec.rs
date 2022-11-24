@@ -51,6 +51,12 @@ const INITIAL_SALE: Balance = ARYA * 50_000_000;
 pub fn arya_config() -> Result<ChainSpec, String> {
 	let wasm_binary = WASM_BINARY.ok_or_else(|| "Live wasm not available".to_string())?;
 
+	// Give your base currency a unit name and decimal places
+	let mut properties = sc_chain_spec::Properties::new();
+	properties.insert("tokenSymbol".into(), TOKEN_SYMBOL.into());
+	properties.insert("tokenDecimals".into(), TOKEN_DECIMALS.into());
+	properties.insert("ss58Format".into(), SS_58_FORMAT.into());
+
 	Ok(ChainSpec::from_genesis(
 		// Name
 		"Arya Live",
