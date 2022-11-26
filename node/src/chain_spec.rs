@@ -1,7 +1,7 @@
 use hex_literal::hex;
 use node_template_runtime::{
 	AccountId, AuraConfig, BalancesConfig, GenesisConfig, GrandpaConfig, Signature, SudoConfig,
-	SystemConfig, WASM_BINARY,
+	SystemConfig, VestingConfig, WASM_BINARY,
 };
 use runtime_common::constants::{Balance, ARYA, TOKEN_DECIMALS};
 use sc_service::ChainType;
@@ -218,6 +218,18 @@ fn testnet_genesis(
 	endowed_accounts: Vec<(AccountId, Balance)>,
 	_enable_println: bool,
 ) -> GenesisConfig {
+	type BlockNumer = u32;
+	type NoOfVest = u32;
+
+	// 	3 months in terms of 6s blocks is 1,296,000 blocks, i.e. period = 1,296,000
+	// 	THREE_MONTHS: u32 = 1_296_000; // We are approximating a month to 30 days.
+	// 	ONE_MONTH: u32 = 432_000; // 30 days from block 0, implies 432_000 blocks
+
+	let vesting_accounts_json = &include_bytes!("../../res/vesting.json")[..];
+	let vesting_accounts: Vec<(AccountId, BlockNumer, BlockNumer, NoOfVest, Balance)> =
+		serde_json::from_slice(vesting_accounts_json)
+			.expect("The file vesting_test.json is not exist or not having valid data.");
+
 	GenesisConfig {
 		system: SystemConfig {
 			// Add Wasm runtime to storage.
@@ -235,6 +247,6 @@ fn testnet_genesis(
 			key: Some(root_key),
 		},
 		transaction_payment: Default::default(),
-		vesting: Default::default(),
+		vesting: VestingConfig { vesting: vesting_accounts },
 	}
 }
