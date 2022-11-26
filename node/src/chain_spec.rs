@@ -223,9 +223,7 @@ fn testnet_genesis(
 			// Add Wasm runtime to storage.
 			code: wasm_binary.to_vec(),
 		},
-		balances: BalancesConfig {
-			balances: endowed_accounts,
-		},
+		balances: BalancesConfig { balances: endowed_accounts },
 		aura: AuraConfig {
 			authorities: initial_authorities.iter().map(|x| (x.0.clone())).collect(),
 		},

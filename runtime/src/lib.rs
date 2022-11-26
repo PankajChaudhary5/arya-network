@@ -15,7 +15,8 @@ use sp_core::{crypto::KeyTypeId, OpaqueMetadata};
 use sp_runtime::{
 	create_runtime_str, generic, impl_opaque_keys,
 	traits::{
-		AccountIdLookup, BlakeTwo256, Block as BlockT, IdentifyAccount, NumberFor, One, Verify,
+		AccountIdLookup, BlakeTwo256, Block as BlockT, BlockNumberProvider, IdentifyAccount,
+		NumberFor, One, Verify,
 	},
 	transaction_validity::{TransactionSource, TransactionValidity},
 	ApplyExtrinsicResult, MultiSignature,
@@ -38,9 +39,11 @@ pub use frame_support::{
 	StorageValue,
 };
 pub use frame_system::Call as SystemCall;
+use frame_system::EnsureSigned;
 pub use pallet_balances::Call as BalancesCall;
 pub use pallet_timestamp::Call as TimestampCall;
 use pallet_transaction_payment::{ConstFeeMultiplier, CurrencyAdapter, Multiplier};
+pub use runtime_common::constants::ARYA;
 #[cfg(any(feature = "std", test))]
 pub use sp_runtime::BuildStorage;
 pub use sp_runtime::{Perbill, Permill};
@@ -278,6 +281,30 @@ impl pallet_template::Config for Runtime {
 	type RuntimeEvent = RuntimeEvent;
 }
 
+parameter_types! {
+	pub MinVestedTransfer: Balance = 100 * ARYA;
+	pub const MaxVestingSchedules: u32 = 100;
+}
+
+pub struct SubstrateBlockNumberProvider;
+impl BlockNumberProvider for SubstrateBlockNumberProvider {
+	type BlockNumber = BlockNumber;
+
+	fn current_block_number() -> Self::BlockNumber {
+		System::block_number()
+	}
+}
+
+impl orml_vesting::Config for Runtime {
+	type RuntimeEvent = RuntimeEvent;
+	type Currency = Balances;
+	type MinVestedTransfer = MinVestedTransfer;
+	type WeightInfo = ();
+	type VestedTransferOrigin = EnsureSigned<AccountId>;
+	type MaxVestingSchedules = MaxVestingSchedules;
+	type BlockNumberProvider = SubstrateBlockNumberProvider;
+}
+
 // Create the runtime by composing the FRAME pallets that were previously configured.
 construct_runtime!(
 	pub struct Runtime
@@ -296,6 +323,7 @@ construct_runtime!(
 		Sudo: pallet_sudo,
 		// Include the custom logic from the pallet-template in the runtime.
 		TemplateModule: pallet_template,
+		Vesting: orml_vesting,
 	}
 );
 
