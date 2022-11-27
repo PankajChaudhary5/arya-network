@@ -5,12 +5,14 @@ NFT's on polkadot network.
 
 Currently the product is in development phase...
 
-Features added:
+### Features added:
 * Tokenomics
+* Initial supply distribution.
 * Vesting
+* NFT feature.
+* feeless NFT transactions.
 
-Upcoming features:
-Staking.
-NFT feature.
-Governance support.
-feeless NFT transactions.
+### Upcoming features:
+* Staking.
+* Reward distribution to validators implementation.
+* Governance support.
