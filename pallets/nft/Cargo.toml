@@ -2,7 +2,7 @@
 name = "pallet-nft"
 version = "4.0.0-dev"
 description = "pallet to mimic nft pallet erc721"
-authors = [""]
+authors = ["Pankaj Chaudhary"]
 homepage = ""
 edition = "2021"
 license = "Unlicense"
