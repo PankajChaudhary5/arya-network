@@ -311,7 +311,7 @@ parameter_types! {
 	pub const NftTokenLimitForUser: u64 = 10;
 }
 
-impl pallet_erc721::Config for Runtime {
+impl pallet_nft::Config for Runtime {
 	type RuntimeEvent = RuntimeEvent;
 	type TokenLimit = NftTokenLimit;
 	type TokenLimitForAccount = NftTokenLimitForUser;
