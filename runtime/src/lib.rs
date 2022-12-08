@@ -47,6 +47,7 @@ pub use runtime_common::constants::ARYA;
 #[cfg(any(feature = "std", test))]
 pub use sp_runtime::BuildStorage;
 pub use sp_runtime::{Perbill, Permill};
+pub use pallet_nft;
 
 /// Import the template pallet.
 pub use pallet_template;
@@ -305,6 +306,18 @@ impl orml_vesting::Config for Runtime {
 	type BlockNumberProvider = SubstrateBlockNumberProvider;
 }
 
+parameter_types! {
+	pub const NftTokenLimit: u128 = 100;
+	pub const NftTokenLimitForUser: u64 = 10;
+}
+
+impl pallet_erc721::Config for Runtime {
+	type RuntimeEvent = RuntimeEvent;
+	type TokenLimit = NftTokenLimit;
+	type TokenLimitForAccount = NftTokenLimitForUser;
+	type TokenCreator = frame_system::EnsureRoot<Self::AccountId>;
+}
+
 // Create the runtime by composing the FRAME pallets that were previously configured.
 construct_runtime!(
 	pub struct Runtime
@@ -324,6 +337,7 @@ construct_runtime!(
 		// Include the custom logic from the pallet-template in the runtime.
 		TemplateModule: pallet_template,
 		Vesting: orml_vesting,
+		Nft: pallet_nft::{Pallet, Call, Storage, Event<T>}
 	}
 );
 

@@ -24,7 +24,7 @@ pub mod pallet {
 	#[pallet::config]
 	pub trait Config: frame_system::Config {
 		/// Runtime Event Defenition
-		type Event: From<Event<Self>> + IsType<<Self as frame_system::Config>::Event>;
+		type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
 		/// Max number of tokens of this type that can exist
 		type TokenLimit: Get<u128>;
 		/// Max number of tokens of this type that one account may posess
@@ -155,6 +155,7 @@ pub mod pallet {
 	/// Total number of tokens destroyed
 	pub type TotalBurned<T> = StorageValue<_, u128, ValueQuery>;
 
+	/// Total tokens owned by a account.
 	#[pallet::storage]
 	#[pallet::getter(fn token_count_for_account)]
 	pub type TokenCountForAccount<T: Config> =
