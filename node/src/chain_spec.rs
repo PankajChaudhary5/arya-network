@@ -125,18 +125,16 @@ pub fn development_config() -> Result<ChainSpec, String> {
 				get_account_id_from_seed::<sr25519::Public>("Alice"),
 				// Pre-funded accounts
 				vec![
-					(get_account_id_from_seed::<sr25519::Public>("Alice"), 2000000),
-					(get_account_id_from_seed::<sr25519::Public>("Bob"), 1000000),
-					(get_account_id_from_seed::<sr25519::Public>("Charlie"), 1000000),
-					(get_account_id_from_seed::<sr25519::Public>("Dave"), 10000000),
-					(get_account_id_from_seed::<sr25519::Public>("Eve"), 1000000),
-					(get_account_id_from_seed::<sr25519::Public>("Ferdie"), 1000000),
-					(get_account_id_from_seed::<sr25519::Public>("Alice//stash"), 1000000),
-					(get_account_id_from_seed::<sr25519::Public>("Bob//stash"), 10000000),
-					(get_account_id_from_seed::<sr25519::Public>("Charlie//stash"), 1000000),
-					(get_account_id_from_seed::<sr25519::Public>("Dave//stash"), 1000),
-					(get_account_id_from_seed::<sr25519::Public>("Eve//stash"), 1000),
-					(get_account_id_from_seed::<sr25519::Public>("Ferdie//stash"), 1000),
+					(
+						hex!["88fd77d706e168d78713a6a927c1ddfae367b081fb2829b119bbcc6db9af401d"]
+							.into(),
+						SEED_SUPPLY,
+					),
+					(
+						hex!["04063fc1cbba917ced6c45091bf631de6a4db584dd55c1d67431661a5d57a575"]
+							.into(),
+						INITIAL_SALE,
+					),
 				],
 				true,
 			)
