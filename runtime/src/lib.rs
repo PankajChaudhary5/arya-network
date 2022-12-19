@@ -326,7 +326,7 @@ parameter_types! {
 // Configure the pallet-feeless.
 impl pallet_feeless::Config for Runtime {
 	type RuntimeEvent = RuntimeEvent;
-	type Call = Call;
+	type RuntimeCall = RuntimeCall;
 	type MaxCalls = MaxCalls;
 }
 
@@ -350,7 +350,7 @@ construct_runtime!(
 		TemplateModule: pallet_template,
 		Vesting: orml_vesting,
 		Nft: pallet_nft::{Pallet, Call, Storage, Event<T>},
-		Feeless: pallet_feeless::{Pallet, Call, Storage, Event<T>},
+		Feeless: pallet_feeless,
 	}
 );
 
