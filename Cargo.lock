@@ -3726,6 +3726,7 @@ dependencies = [
  "orml-vesting",
  "pallet-aura",
  "pallet-balances",
+ "pallet-feeless",
  "pallet-grandpa",
  "pallet-nft",
  "pallet-randomness-collective-flip",
@@ -3953,6 +3954,22 @@ dependencies = [
  "scale-info",
  "sp-runtime",
  "sp-std",
+]
+
+[[package]]
+name = "pallet-feeless"
+version = "0.0.1"
+dependencies = [
+ "frame-benchmarking",
+ "frame-support",
+ "frame-system",
+ "pallet-balances",
+ "parity-scale-codec",
+ "scale-info",
+ "serde",
+ "sp-core",
+ "sp-io",
+ "sp-runtime",
 ]
 
 [[package]]
