@@ -23,11 +23,11 @@ pub mod pallet {
 
 	#[pallet::config]
 	pub trait Config: frame_system::Config {
-		/// Runtime Event Defenition
+		/// Runtime Event Definition
 		type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
 		/// Max number of tokens of this type that can exist
 		type TokenLimit: Get<u128>;
-		/// Max number of tokens of this type that one account may posess
+		/// Max number of tokens of this type that one account may possess
 		type TokenLimitForAccount: Get<u64>;
 		/// Token creator who is able to mint new instances of this Token
 		type TokenCreator: EnsureOrigin<Self::RuntimeOrigin>;
@@ -339,7 +339,7 @@ pub mod pallet {
 	impl<T: Config> Pallet<T> {
 		// Intrinsics.. mint, burn, transfer, etc.
 
-		// READ-ONLY Instrics
+		// READ-ONLY Intrinsics
 		pub fn _owner_of(token: &TokenId<T>) -> Result<T::AccountId, DispatchError> {
 			let owner = AccountForToken::<T>::get(&token).ok_or(Error::<T>::TokenDoesntExist)?;
 			Ok(owner)
@@ -359,7 +359,7 @@ pub mod pallet {
 			T::TokenLimitForAccount::get()
 		}
 
-		// READ and WRITE Instrinsics MUST BE PRIVATE!
+		// READ and WRITE Intrinsics MUST BE PRIVATE!
 		fn _mint(
 			for_: &T::AccountId,
 			bytes_to_be_hashed: BytesToHash,

@@ -57,7 +57,7 @@ pub mod pallet {
 		/// Not a super user.
 		NotSuperUser,
 
-		/// When the feeless count is more than the max count permited.
+		/// When the feeless count is more than the max count permitted.
 		FeelessTxnCountLimitExceeds,
 	}
 
