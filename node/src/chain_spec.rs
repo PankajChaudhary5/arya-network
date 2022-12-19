@@ -125,6 +125,7 @@ pub fn development_config() -> Result<ChainSpec, String> {
 				get_account_id_from_seed::<sr25519::Public>("Alice"),
 				// Pre-funded accounts
 				vec![
+					(get_account_id_from_seed::<sr25519::Public>("Alice"), ARYA * 200_000_000),
 					(
 						hex!["88fd77d706e168d78713a6a927c1ddfae367b081fb2829b119bbcc6db9af401d"]
 							.into(),
@@ -178,7 +179,7 @@ pub fn local_testnet_config() -> Result<ChainSpec, String> {
 				get_account_id_from_seed::<sr25519::Public>("Alice"),
 				// Pre-funded accounts
 				vec![
-					(get_account_id_from_seed::<sr25519::Public>("Alice"), 2000000),
+					(get_account_id_from_seed::<sr25519::Public>("Alice"), 2000000000000000000),
 					(get_account_id_from_seed::<sr25519::Public>("Bob"), 1000000),
 					(get_account_id_from_seed::<sr25519::Public>("Charlie"), 1000000),
 					(get_account_id_from_seed::<sr25519::Public>("Dave"), 10000000),
