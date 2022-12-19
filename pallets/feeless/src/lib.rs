@@ -15,10 +15,9 @@ pub use pallet::*;
 pub mod pallet {
 	use crate::FeelessInfo;
 	use frame_support::{
-		dispatch::{DispatchResult, DispatchResultWithPostInfo, Dispatchable},
+		dispatch::{DispatchResult, DispatchResultWithPostInfo, Dispatchable, GetDispatchInfo, Pays},
 		pallet_prelude::*,
 		traits::Get,
-		weights::{GetDispatchInfo, Pays},
 		Parameter,
 	};
 	use frame_system::pallet_prelude::*;
@@ -36,7 +35,9 @@ pub mod pallet {
 		type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
 
 		/// The call type from the runtime which has all the calls available in your runtime.
-		type Call: Parameter + GetDispatchInfo + Dispatchable<RuntimeOrigin = Self::RuntimeOrigin>;
+		type RuntimeCall: Parameter
+		+ Dispatchable<RuntimeOrigin = Self::RuntimeOrigin>
+		+ GetDispatchInfo;
 
 		/// The maximum amount of calls an account can make in a session.
 		#[pallet::constant]
@@ -94,11 +95,11 @@ pub mod pallet {
 	impl<T: Config> Pallet<T> {
 		#[pallet::weight({
 		let dispatch_info = call.get_dispatch_info();
-		(dispatch_info.weight.saturating_add(10_000), dispatch_info.class, Pays::Yes)
+		(dispatch_info.weight, dispatch_info.class, Pays::Yes)
 		})]
 		pub fn make_feeless(
 			origin: OriginFor<T>,
-			call: Box<<T as Config>::Call>,
+			call: Box<<T as Config>::RuntimeCall>,
 		) -> DispatchResultWithPostInfo {
 			let sender = ensure_signed(origin.clone())?;
 
