@@ -33,10 +33,10 @@ pub mod pallet {
 	#[pallet::config]
 	pub trait Config: frame_system::Config {
 		/// Because this pallet emits events, it depends on the runtime's definition of an event.
-		type Event: From<Event<Self>> + IsType<<Self as frame_system::Config>::Event>;
+		type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
 
 		/// The call type from the runtime which has all the calls available in your runtime.
-		type Call: Parameter + GetDispatchInfo + Dispatchable<Origin = Self::Origin>;
+		type Call: Parameter + GetDispatchInfo + Dispatchable<RuntimeOrigin = Self::RuntimeOrigin>;
 
 		/// The maximum amount of calls an account can make in a session.
 		#[pallet::constant]
@@ -134,7 +134,7 @@ pub mod pallet {
 		}
 
 		/// Add a member to Super User.
-		#[pallet::weight(10_000 + T::DbWeight::get().reads_writes(1,1))]
+		#[pallet::weight( T::DbWeight::get().reads_writes(1,1))]
 		pub fn add_super_user(
 			origin: OriginFor<T>,
 			who: T::AccountId,
@@ -151,7 +151,7 @@ pub mod pallet {
 		}
 
 		/// Remove a member from Super User.
-		#[pallet::weight(10_000 + T::DbWeight::get().reads_writes(1,1))]
+		#[pallet::weight( T::DbWeight::get().reads_writes(1,1))]
 		pub fn remove_super_user(origin: OriginFor<T>, who: T::AccountId) -> DispatchResult {
 			ensure_root(origin.clone())?;
 

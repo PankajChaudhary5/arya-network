@@ -51,6 +51,7 @@ frame-system-benchmarking = { version = "4.0.0-dev", default-features = false, g
 pallet-template = { version = "4.0.0-dev", default-features = false, path = "../pallets/template" }
 orml-vesting = { version = "0.4.1-dev", default-features = false, path = "../pallets/vesting" }
 pallet-nft = { path = "../pallets/nft", default-features = false }
+pallet-feeless = { path = "../pallets/feeless", default-features = false }
 runtime-common = { path = "./common", default-features = false }
 
 [build-dependencies]
@@ -77,6 +78,7 @@ std = [
 	"pallet-sudo/std",
 	"pallet-template/std",
 	"pallet-nft/std",
+	"pallet-feeless/std",
 	"pallet-timestamp/std",
 	"pallet-transaction-payment-rpc-runtime-api/std",
 	"pallet-transaction-payment/std",

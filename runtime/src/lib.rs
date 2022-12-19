@@ -318,6 +318,18 @@ impl pallet_nft::Config for Runtime {
 	type TokenCreator = frame_system::EnsureRoot<Self::AccountId>;
 }
 
+parameter_types! {
+	// No of max calls a user can do in particular session.
+	pub const MaxCalls: u32 = 5;
+}
+
+// Configure the pallet-feeless.
+impl pallet_feeless::Config for Runtime {
+	type RuntimeEvent = RuntimeEvent;
+	type Call = Call;
+	type MaxCalls = MaxCalls;
+}
+
 // Create the runtime by composing the FRAME pallets that were previously configured.
 construct_runtime!(
 	pub struct Runtime
@@ -337,7 +349,8 @@ construct_runtime!(
 		// Include the custom logic from the pallet-template in the runtime.
 		TemplateModule: pallet_template,
 		Vesting: orml_vesting,
-		Nft: pallet_nft::{Pallet, Call, Storage, Event<T>}
+		Nft: pallet_nft::{Pallet, Call, Storage, Event<T>},
+		Feeless: pallet_feeless::{Pallet, Call, Storage, Event<T>},
 	}
 );
 
