@@ -15,7 +15,9 @@ pub use pallet::*;
 pub mod pallet {
 	use crate::FeelessInfo;
 	use frame_support::{
-		dispatch::{DispatchResult, DispatchResultWithPostInfo, Dispatchable, GetDispatchInfo, Pays},
+		dispatch::{
+			DispatchResult, DispatchResultWithPostInfo, Dispatchable, GetDispatchInfo, Pays,
+		},
 		pallet_prelude::*,
 		traits::Get,
 		Parameter,
@@ -36,8 +38,8 @@ pub mod pallet {
 
 		/// The call type from the runtime which has all the calls available in your runtime.
 		type RuntimeCall: Parameter
-		+ Dispatchable<RuntimeOrigin = Self::RuntimeOrigin>
-		+ GetDispatchInfo;
+			+ Dispatchable<RuntimeOrigin = Self::RuntimeOrigin>
+			+ GetDispatchInfo;
 
 		/// The maximum amount of calls an account can make in a session.
 		#[pallet::constant]

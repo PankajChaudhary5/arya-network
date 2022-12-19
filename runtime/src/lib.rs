@@ -41,13 +41,13 @@ pub use frame_support::{
 pub use frame_system::Call as SystemCall;
 use frame_system::EnsureSigned;
 pub use pallet_balances::Call as BalancesCall;
+pub use pallet_nft;
 pub use pallet_timestamp::Call as TimestampCall;
 use pallet_transaction_payment::{ConstFeeMultiplier, CurrencyAdapter, Multiplier};
 pub use runtime_common::constants::ARYA;
 #[cfg(any(feature = "std", test))]
 pub use sp_runtime::BuildStorage;
 pub use sp_runtime::{Perbill, Permill};
-pub use pallet_nft;
 
 /// Import the template pallet.
 pub use pallet_template;
