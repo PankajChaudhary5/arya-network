@@ -31,3 +31,7 @@ This command will start the single-node development chain with non-persistent st
 ```bash
 ./target/release/node-template --dev
 ```
+
+## Contributing
+We thrive for the best and want you to contribute towards a better Project.
+See [`CONTRIBUTING.md`](CONTRIBUTING.md) for giving your valuable feedbacks and contributions.
